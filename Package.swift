@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftSemantics",
+    platforms: [
+        .macOS(.v10_15)
+    ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
@@ -14,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/apple/swift-syntax.git", exact: "0.50500.0"),
+        .package(url: "https://github.com/apple/swift-syntax.git", exact: "0.50700.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -23,11 +26,16 @@ let package = Package(
             name: "SwiftSemantics",
             dependencies: [
                 .product(name: "SwiftSyntax", package: "swift-syntax"),
+                .product(name: "SwiftSyntaxParser", package: "swift-syntax"),
+
             ]
         ),
         .testTarget(
             name: "SwiftSemanticsTests",
-            dependencies: ["SwiftSemantics"]
+            dependencies: [
+                .product(name: "SwiftSyntax", package: "swift-syntax"),
+                .product(name: "SwiftSyntaxParser", package: "swift-syntax"),
+            ]
         ),
     ]
 )
